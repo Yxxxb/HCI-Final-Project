@@ -6,7 +6,7 @@ const dirThreshold = 0.12;
 
 let isVideo = false;
 let model = null;
-let videoInterval = 100;
+let videoInterval = 200;
 
 let oldGamex = 0;
 let oldGamey = 0;
@@ -27,6 +27,45 @@ function startVideo() {
             runDetection()
         } else {
             alert("Please enable video")
+        }
+    });
+}
+
+function runDetection() {
+    model.detect(video).then(predictions => {
+        // console.log("Predictions: ", predictions);
+        // get the middle x value of the bounding box and map to paddle location
+        model.renderPredictions(predictions, canvas, context, video);
+        if (predictions[0]) {
+            // console.log('predictions:',predictions[0])
+            let midvalx = predictions[0].bbox[0] + (predictions[0].bbox[2] / 2);
+            let midvaly = predictions[0].bbox[1] + (predictions[0].bbox[3] / 2);
+            // gamex = midvalx / video.width;
+            // gamey = midvaly / video.height;
+            let midwindowx = video.width / 2
+            let midwindowy = video.height / 2
+            if (midvalx > midwindowx && midvaly > midwindowy){
+                dir = "right"
+            }
+            else if (midvalx > midwindowx && midvaly < midwindowy){
+                dir = "top"
+            }
+            else if (midvalx < midwindowx && midvaly < midwindowy){
+                dir = "left"
+            }
+            else {
+                dir = "bottom"
+            }
+
+
+            // console.log(gamex, gamey);
+            // let dir = getDirection(gamex, gamey);
+            setSnakeDir(dir)
+        }
+        if (isVideo) {
+            setTimeout(() => {
+                runDetection(video)
+            }, videoInterval);
         }
     });
 }
@@ -71,7 +110,6 @@ function setSnakeDir(dir) {
                 if (snake.direction !== 39){
                     GameStart = true;
                     snake.directionBuffer = 37;
-
                 }
                 break;
             }
@@ -109,27 +147,7 @@ function setSnakeDir(dir) {
     }
 }
 
-function runDetection() {
-    model.detect(video).then(predictions => {
-        // console.log("Predictions: ", predictions);
-        // get the middle x value of the bounding box and map to paddle location
-        model.renderPredictions(predictions, canvas, context, video);
-        if (predictions[0]) {
-            let midvalx = predictions[0].bbox[0] + (predictions[0].bbox[2] / 2);
-            let midvaly = predictions[0].bbox[1] + (predictions[0].bbox[3] / 2);
-            gamex = midvalx / video.width;
-            gamey = midvaly / video.height;
-            console.log(gamex, gamey);
-            let dir = getDirection(gamex, gamey);
-            setSnakeDir(dir)
-        }
-        if (isVideo) {
-            setTimeout(() => {
-                runDetection(video)
-            }, videoInterval);
-        }
-    });
-}
+
 
 
 // Load the model.
