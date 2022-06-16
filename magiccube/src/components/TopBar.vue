@@ -320,7 +320,7 @@ export default {
         }
         return
       }
-      let theDate = new Date()
+      // let theDate = new Date()
       this.endHandler();
       let result = this.$parent.commitCubes();
       if(!result) {
@@ -331,49 +331,55 @@ export default {
         });
       }
       else {
-        this.$prompt('请输入你的姓名', '恭喜您已完成魔方挑战!', {
-          confirmButtonText: '确定',
-          showCancelButton: false,
-        }).then(({ value }) => {
-          console.log("here")
-          let name = value;
-          let timeString = this.minute+":"+this.second+"'"+this.millisecond
-          let time = this.totalTime
-          let day = theDate.getDate()
-          let month = theDate.getMonth()+1
-          let axios = require('axios');
-          let FormData = require('form-data');
-          let data = new FormData();
-          data.append('name', name);
-          data.append('timeString', timeString);
-          data.append('time', time);
-          data.append('day',day);
-          data.append('month',month);
-          let config = {
-            method: 'post',
-            url: 'http://localhost:8098/api/v1/record/post/add',
-            data: data
-          };
-
-          axios(config)
-              .then((response)=>{
-                console.log(response);
-                this.$message({
-                  type: 'success',
-                  message: '上传成功!您的成绩是' + this.minute+":"+this.second+"'"+this.millisecond
-                });
-                this.resetHandler()
-              })
-              .catch(function (error) {
-                console.log(error);
-              });
-
-        }).catch(() => {
-          this.$message({
-            type: 'info',
-            message: '取消输入'
-          });
+        this.$message({
+          showClose: true,
+          message: '恭喜您！',
+          type: 'success'
         });
+        // this.$prompt('请输入你的姓名', '恭喜您已完成魔方挑战!', {
+        //   confirmButtonText: '确定',
+        //   showCancelButton: false,
+        // })
+        //     .then(({ value }) => {
+        //   console.log("here")
+        //   let name = value;
+        //   let timeString = this.minute+":"+this.second+"'"+this.millisecond
+        //   let time = this.totalTime
+        //   let day = theDate.getDate()
+        //   let month = theDate.getMonth()+1
+        //   let axios = require('axios');
+        //   let FormData = require('form-data');
+        //   let data = new FormData();
+        //   data.append('name', name);
+        //   data.append('timeString', timeString);
+        //   data.append('time', time);
+        //   data.append('day',day);
+        //   data.append('month',month);
+        //   let config = {
+        //     method: 'post',
+        //     url: 'http://localhost:8098/api/v1/record/post/add',
+        //     data: data
+        //   };
+        //
+        //   axios(config)
+        //       .then((response)=>{
+        //         console.log(response);
+        //         this.$message({
+        //           type: 'success',
+        //           message: '上传成功!您的成绩是' + this.minute+":"+this.second+"'"+this.millisecond
+        //         });
+        //         this.resetHandler()
+        //       })
+        //       .catch(function (error) {
+        //         console.log(error);
+        //       });
+        //
+        // }).catch(() => {
+        //   this.$message({
+        //     type: 'info',
+        //     message: '取消输入'
+        //   });
+        // });
       }
     },
 
