@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>贪吃蛇</title>
+	<link rel="stylesheet" href="css/track.css">
+</head>
+<body>
+	<div class="total">
+
+		<video class="videobox canvasbox" autoplay="autoplay" id="myvideo"></video>
+		<div class="canvasbox2" id="board">
+			<div class="message">
+				<h1 class="alert" id="score">
+					得分: 0
+				</h1>
+			</div>
+		</div>
+		<div class="result" id="result" style="display: none">
+			<div class="message">
+				<h1 class="alert" id="result_score"></h1>
+				<h1 class="alert-min">
+					游戏结束！
+				</h1>
+			</div>
+		</div>
+		<canvas id="canvas" class="border canvasbox"></canvas>
+		<script src="lib/three.js"></script>
+		<script src="lib/Projector.js"></script>
+		<script src="lib/CanvasRenderer.js"></script>
+		<script src="lib/handtrack.min.js"></script>
+
+		<script src="js/snake.js"></script>
+		<script src="js/interactive.js"></script>
+	</div>
+
+
+</body>
+</html>
