@@ -63,7 +63,7 @@ Snake.prototype.move = function () {
     }
     console.log("directionBuffer: ",this.directionBuffer, this.direction);
     switch (this.directionBuffer) {
-        case 37://左
+        case 37://left
             if(this.direction !== 39){
                 this.head.x -= this.head.a;
                 this.direction = this.directionBuffer;
@@ -72,7 +72,7 @@ Snake.prototype.move = function () {
                 this.directionBuffer = this.direction;
             }
             break;
-        case 38://上
+        case 38://up
             if(this.direction !== 40){
                 this.head.z -= this.head.a;
                 this.direction = this.directionBuffer;
@@ -81,7 +81,7 @@ Snake.prototype.move = function () {
                 this.directionBuffer = this.direction;
             }
             break;
-        case 39: //右
+        case 39: //right
             if(this.direction !== 37){
                 this.head.x += this.head.a;
                 this.direction = this.directionBuffer;
@@ -90,7 +90,7 @@ Snake.prototype.move = function () {
                 this.directionBuffer = this.direction;
             }
             break;
-        case 40://下
+        case 40://down
             if(this.direction !== 38){
                 this.head.z += this.head.a;
                 this.direction = this.directionBuffer;
